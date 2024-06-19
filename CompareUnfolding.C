@@ -41,20 +41,26 @@ void CompareUnfolding(std::string inputFileName, std::string inputFileName2) {
     }
     
     TH1D* h1_raw = (TH1D*)f->Get("h1_raw");
-    
+    TH1D* h1_true = (TH1D*)f->Get("h1_true");
+    TH1D* h1_fulleff_match = (TH1D*)f->Get("h1_fulleff_match");
+    TH1D* h1_rw = (TH1D*)f->Get("h1_rw");
     TH1D* h1_fold = (TH1D*)f->Get("h1_fold");
+    TH1D* h1_unfold = (TH1D*)f->Get("h1_unfolded");
+    TH1D* h1_unfold_rw = (TH1D*)f->Get("h1_unfolded_rw");
+   
     TH1D* h1_fold2 = (TH1D*)f2->Get("h1_fold");
     h1_fold2->SetName("h1_fold2");
     
-    TH1D* h1_unfold = (TH1D*)f->Get("h1_unfolded");
     TH1D* h1_unfold2 = (TH1D*)f2->Get("h1_unfolded");
     h1_fold2->SetName("h1_unfolded2");
     
     h1_raw->SetLineColor(kRed);
+    h1_true->SetLineColor(kPink+2);
+    h1_fulleff_match->SetLineColor(kOrange+2);
     h1_fold->SetLineColor(kBlue);
     h1_fold2->SetLineColor(kGreen+4);
     h1_unfold->SetLineColor(kMagenta);
-    h1_unfold2->SetLineColor(kCyan);
+    h1_unfold2->SetLineColor(kCyan+4);
     
     
     TCanvas* c = new TCanvas();
@@ -76,21 +82,36 @@ void CompareUnfolding(std::string inputFileName, std::string inputFileName2) {
     legend->SetTextSize(0.035);
     legend->Draw();
     
+    cout<< h1_fold->GetNbinsX()<<endl;
+    cout<< h1_raw->GetNbinsX()<<endl;
     c->Update();
     
-    //
-//    TCanvas* c1 = new TCanvas();
-//    h1_unfold2->SetStats(0);
-//    h1_unfold2->Divide(h1_unfold);
-//    h1_unfold2->GetXaxis()->SetTitle("jet_pt");
-//    h1_unfold2->GetYaxis()->SetTitle("iter=10/iter=4");
+    //nIter ratio
+    TCanvas* c1 = new TCanvas();
+    h1_unfold2->SetStats(0);
+    h1_unfold2->Divide(h1_unfold);
+    h1_unfold2->Draw();
+    h1_unfold2->GetXaxis()->SetTitle("jet_pt");
+    h1_unfold2->GetYaxis()->SetTitle("iter = 10/iter = 4");
     
+    //Kinematic efficiency ratio
+    TCanvas* c2 = new TCanvas();
+    h1_fulleff_match->SetStats(0);
+    h1_fulleff_match->Divide(h1_true);
+    h1_fulleff_match->GetXaxis()->SetTitle("jet_pt");
+    h1_fulleff_match->GetYaxis()->SetTitle("Kinematic Efficiency");
+    h1_fulleff_match->Draw();
     //    TLegend* legend1 = new TLegend(0.7, 0.7, 0.9, 0.9);
     //    legend1->AddEntry(h1_unfold, "iter = 4", "l");
     //    legend1->AddEntry(h1_unfold2, "iter = 10", "l");
     //    legend1->Draw();
     
-    
+    TCanvas* c3 = new TCanvas();
+    h1_unfold_rw->SetStats(0);
+    h1_unfold_rw->Divide(h1_unfold);
+    h1_unfold_rw->GetXaxis()->SetTitle("jet_pt");
+    h1_unfold_rw->GetYaxis()->SetTitle("rw unfolded/unfolded");
+    h1_unfold_rw->Draw();
     
     
     //    // Close the files
