@@ -15,6 +15,6 @@ cd /home/ar2545/RooUnfold/examples/
 
 
 # Run your ROOT script with the pthardbin value
-root -l -b -q 'Unfolding3dAnalysis.cxx.cxx("",'$pthardbin')'
+root -l -b -q 'Unfolding3dAnalysis.cxx("",'$pthardbin')'
 
 # You might need to update the above line to match how your script handles the pthardbin value.
