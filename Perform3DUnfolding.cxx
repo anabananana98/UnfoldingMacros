@@ -126,7 +126,7 @@ void Perform3DUnfolding(const char* responseFile = "", const char* dataFile = ""
         std::cerr << "Could not retrieve 1Dresponse object!" << std::endl;
         return;
     }
-    RooUnfoldResponse* response3D = (RooUnfoldResponse*)fResponse->Get("h3_reco_h3_true");
+    RooUnfoldResponse* response3D = (RooUnfoldResponse*)fResponse->Get("h3_reco_eec_h3_true_eec");
     if (!response1D) {
         std::cerr << "Could not retrieve 3Dresponse object!" << std::endl;
         return;
@@ -135,8 +135,8 @@ void Perform3DUnfolding(const char* responseFile = "", const char* dataFile = ""
     
     TH1D* h1_reco = (TH1D*)fResponse->Get("h1_reco");
     TH1D* h1_true = (TH1D*)fResponse->Get("h1_true");
-    TH3D* h3_reco = (TH3D*)fResponse->Get("h3_reco");
-    TH3D* h3_true = (TH3D*)fResponse->Get("h3_true");
+    TH3D* h3_reco = (TH3D*)fResponse->Get("h3_reco_eec");
+    TH3D* h3_true = (TH3D*)fResponse->Get("h3_true_eec");
 
 
     TH1* h1_raw = (TH1*) fData->Get("jet_pt_hist");
@@ -164,14 +164,14 @@ void Perform3DUnfolding(const char* responseFile = "", const char* dataFile = ""
     h1_triv = (TH1D*)unfoldTriv.Hreco();//trivial unfolding 
     h1_triv->SetName("h1_triv");
    
-
+   
     // Check for NaNs or Infs in unfolded histogram
     if (hasNaNsOrInfs(h1_unfolded) || hasNaNsOrInfs(h1_triv)) {
         std::cerr << "Unfolded histogram contains NaNs or Infs!" << std::endl;
         return;
     }
-
-
+ 
+ cout<<"Performing 3D unfolding"<<endl;
 // //     // Create an unfolding object using the Bayes method
     RooUnfoldBayes unfoldTriv3D(response3D, h3_reco, nIter);
    
@@ -188,18 +188,27 @@ void Perform3DUnfolding(const char* responseFile = "", const char* dataFile = ""
     
     
     // Save unfolded histogram to file
-    TFile* fOutput = new TFile(Form("UnfoldingResults_%i.root",nIter), "RECREATE");
+    TString foutname = Form("UnfoldingResults_%i.root",nIter);
+    TFile* fOutput = new TFile(foutname, "RECREATE");
     
     h1_unfolded->Write();
+    h1_raw->Write();
+    h1_true->Write();
+    h1_reco->Write();
     h1_triv->Write();
+    
+    h3_true->Write();
+    h3_reco->Write();
     h3_triv->Write();
+   
+
     
     fOutput->Close();
 
-    Clean up
+   // Clean up
     delete fResponse;
     delete fOutput;
     delete fData;
 
-    std::cout << "Unfolding complete. Results saved to unfolded.root" << std::endl;
+    std::cout << "Unfolding complete. Results saved to "<< foutname << std::endl;
 }
