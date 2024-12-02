@@ -27,12 +27,17 @@
 
 
 void CompareNIter3D(std::string tag, std::string projection) {
+    bool ifFold = true;
+    bool ifCheckProjected = false;
+    bool ifbasic = false;
+    bool ifeec = true;
     
     int num=4;
-    int pt1 =20;
-    int pt2 = 40;
+    int pt1 = 60;
+    int pt2 = 80;
     double rlow = 0.01;
     double rhigh = 0.4;
+    
     const char *str = "#it{p}_{T,jet}";
     const char *str1 = "#it{p}_{T,min}";
     const char *str2 = "anti-#it{k}_{T}";
@@ -41,19 +46,90 @@ void CompareNIter3D(std::string tag, std::string projection) {
     const char *str8 = "#it{#eta}_{jet}";
     const char *str11 = "#it{p}_{T}^{const}";
     
+    TLatex latex;latex.SetNDC ();latex.SetTextSize(0.045);latex.SetTextFont(42);
+    TLatex latex1;latex1.SetNDC ();latex1.SetTextSize(0.045);latex1.SetTextFont(42);
+    TLatex latex2;latex2.SetNDC ();latex2.SetTextSize(0.045);latex2.SetTextFont(42);
+    TLatex latex3;latex3.SetNDC ();latex3.SetTextSize(0.045);latex3.SetTextFont(42);
+    TLatex latex4;latex4.SetNDC ();latex4.SetTextSize(0.045);latex4.SetTextFont(42);
+    TLatex latex5;latex5.SetNDC ();latex5.SetTextSize(0.045);latex5.SetTextFont(42);
+    
     // Create a legend
     TLegend *legend = new TLegend(0.7, 0.7, 0.88, 0.88);
-    //    legend->SetHeader("Histograms", "C");
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
     legend->SetTextSize(0.045);
-    // Array of file names
+    
+        // Create a legend
+    TLegend *legend1 = new TLegend(0.7, 0.7, 0.88, 0.88);
+    legend1->SetBorderSize(0);
+    legend1->SetTextFont(42);
+    legend1->SetTextSize(0.045);
+    
+     TLegend *legend2 = new TLegend(0.7, 0.7, 0.88, 0.88);
+    legend2->SetBorderSize(0);
+    legend2->SetTextFont(42);
+    legend2->SetTextSize(0.045);
+
+    
     const char* filenames[4] = {
-        "UnfoldingResultsSplitTest_1.root",
-        "UnfoldingResultsSplitTest_4.root",
-        "UnfoldingResultsSplitTest_7.root",
-        "UnfoldingResultsSplitTest_10.root",
+    
+//      "/Users/ar2545/Downloads/UnfoldingResultsE3CSplit_1E3C.root",
+//       "/Users/ar2545/Downloads/UnfoldingResultsE3CSplit_4E3C.root",
+//       "/Users/ar2545/Downloads/UnfoldingResultsE3CSplit_7E3C.root",
+//      "/Users/ar2545/Downloads/UnfoldingResultsE3CSplit_10E3C.root",
+    
+//      "/Users/ar2545/Downloads/UnfoldingResultsE3C_1E3C.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsE3C_4E3C.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsE3C_7E3C.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsE3C_10E3C.root",
+    
+//    "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_1.root",
+//    "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4.root",
+//    "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_7.root",
+//    "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_10.root",
+    
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_1EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_4EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_7EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_10EEC.root",
+
+        "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_1EECnew6.root",
+        "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECnew6.root",
+        "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_7EECnew6.root",
+        "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_10EECnew6.root",
+        
+//         "/Users/ar2545/Downloads/UnfoldingResultsTrivEEC_1EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsTrivEEC_4EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsTrivEEC_7EEC.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsTrivEEC_10EEC.root",
+//        
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_1EECnew.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_4EECnew.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_7EECnew.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_10EECnew.root",
+
+// "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_1EEClowR.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_4EEClowR.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_7EEClowR.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_10EEClowR.root",
+        
+//         "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_1EECNov4.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_4EECNov4.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_7EECNov4.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_10EECNov4.root"
+        
+//         "/Users/ar2545/Downloads/UnfoldingResultsEEC_1EECNov7.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_4EECNov7.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_7EECNov7.root",
+//        "/Users/ar2545/Downloads/UnfoldingResultsEEC_10EECNov7.root"
     };
+    
+    const char* base = filenames[1];
+//    std::string base = "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECFold.root";
+//        std::string base = "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECnew.root";
+//    std::string base = "/Users/ar2545/Downloads/UnfoldingResultsTrivEEC_4EEC.root";
+//    std::string base = "/Users/ar2545/Downloads/UnfoldingResultsSplitEEC_4EEC.root";
+    
     
     // Array of unfolded histogram names
     const char* histNamesUnf3d[4] = {
@@ -99,11 +175,45 @@ void CompareNIter3D(std::string tag, std::string projection) {
     else if(tag == "triv")
     {
         originalHistNameUnf = "h3_triv";
-        originalHistNameTru = "h3_true_eec";
+        if(ifeec){
+            originalHistNameTru = "h3_true_eecTriv";
+        }
+        else{
+            originalHistNameTru = "h3_true_e3cTriv";
+        }
+    }
+    else if(tag == "fold")
+    {
+        originalHistNameUnf = "h3_fold";
+//        //        if(tag == "triv"){
+//        if(ifeec){
+            //                originalHistNameTru = "h3_reco_eecTriv";
+            //                originalHistNameTru = "h3_rawSplit";
+            originalHistNameTru = "h3_raw_corr";
+//        }
+//        else{
+//            originalHistNameTru = "h3_true_e3cTriv";
+//        }
+        //        }
+        //        else if(tag == "split"){
+        //            originalHistNameTru = "h3_rawSplit";
+        //        }
+        //        else{
+        //
+        //        }
+        //     originalHistNameTru = "Opt_Un_eec_unf";
+        //     originalHistNameTru = "h3_reco_eecTriv";
+        //     originalHistNameTru = "h3_reco_eec";
+        
     }
     else{
-        originalHistNameUnf = "h3_unfolded";
-        originalHistNameTru = "h3_true_eec";
+        originalHistNameUnf = "h3_unfoldedData";
+        if(ifeec){
+            originalHistNameTru = "h3_true_eec";
+        }
+        else{
+            originalHistNameTru = "h3_true_e3c";
+        }
     
     }
     
@@ -117,109 +227,442 @@ void CompareNIter3D(std::string tag, std::string projection) {
     TCanvas *c1 = new TCanvas("c1", "Overlay Histograms", 800, 600);
 //    c1->SetGrid();
     
-    
-    // Loop over the files, retrieve and rename histograms
-    for (int i = 0; i < num; i++) {
-        // Open the file
-        TFile *file = TFile::Open(filenames[i]);
-        if (!file || file->IsZombie()) {
-            std::cerr << "Error opening file: " << filenames[i] << std::endl;
-            continue;
-        }
-        
-        // Get the 3D histogram
-        TH3 *hist3DUnf = (TH3*)file->Get(originalHistNameUnf);
-        if (!hist3DUnf) {
-            std::cerr << "Error retrieving histogram: " << originalHistNameUnf << " from file: " << filenames[i] << std::endl;
-            file->Close();
-            continue;
-        }
-        hist3DUnf->SetName(histNamesUnf3d[i]);
-        hist3DUnf->GetXaxis()->SetTitle(str4);
-        hist3DUnf->GetYaxis()->SetTitle(str);
-        hist3DUnf->GetZaxis()->SetTitle("wt");
-        hist3DUnf->SetMarkerStyle(markers[i]);
-        hist3DUnf->SetMarkerColor(colors[i]);
-        
-        hist3DUnf->GetXaxis()->SetRangeUser(0.005,0.5);
-
-        
-        TH3 *hist3DTru = (TH3*)file->Get(originalHistNameTru);
-        if (!hist3DTru) {
-            std::cerr << "Error retrieving histogram: " << originalHistNameTru << " from file: " << filenames[i] << std::endl;
-            file->Close();
-            continue;
-        }
-        hist3DTru->SetName(histNamesTru3d[i]);
-        
-        cout<<"hher"<<endl;
-        // Project the 3D histogram to a 1D histogram along the X-axis
-        TH1 *hist1DUnf; //= hist3DUnf->ProjectionX(histNamesUnf[i],2,2,10,10);
-        TH1 *hist1DTru; //= hist3DTru->ProjectionX(histNamesTru[i],2,2,10,10);
-        
-        if(projection=="x"){
-//            hist1DUnf = hist3DUnf->ProjectionX(histNamesUnf[i],2,5,10,10);
-//            hist1DTru = hist3DTru->ProjectionX(histNamesTru[i],2,5,10,10);
-            
-//            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
-//            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
-            hist1DUnf = hist3DUnf->Project3D("x");
-            hist1DTru = hist3DTru->Project3D("x");
+    TFile *file1 = TFile::Open(base);
+    TH3 *hist3DUnf_base = (TH3*)file1->Get(originalHistNameUnf);
+    hist3DUnf_base->SetName("base");
+    TH1 *hist1DUnf_base;
+     if(projection=="x"){
+            hist1DUnf_base = hist3DUnf_base->Project3D("x");
+           
         }
         else if(projection=="y")
         {
-//            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
-//            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
-            
-//            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
-//            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
-            hist1DUnf = hist3DUnf->Project3D("y");
-            hist1DTru = hist3DTru->Project3D("y");
+            hist1DUnf_base = hist3DUnf_base->Project3D("y");
+
         }
         else{
-//            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
-//            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
+            hist1DUnf_base = hist3DUnf_base->Project3D("z");
+        }
+
+
+    if(ifbasic){
+        // Loop over the files, retrieve and rename histograms
+        for (int i = 0; i < num; i++) {
+            // Open the file
+            TFile *file = TFile::Open(filenames[i]);
+            if (!file || file->IsZombie()) {
+                std::cerr << "Error opening file: " << filenames[i] << std::endl;
+                continue;
+            }
             
-//            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
-//            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
-//            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
-//            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
-            hist1DUnf = hist3DUnf->Project3D("z");
-            hist1DTru = hist3DTru->Project3D("z");
-        }
-        
-        hist1DUnf->SetName(histNamesUnf[i]);
-        hist1DTru->SetName(histNamesTru[i]);
-        hist1DUnf->GetYaxis()->SetRangeUser(0.5,1.5);
-        hist1DTru->GetYaxis()->SetRangeUser(0.5,1.5);
-//        TH1 *hist1DUnf = hist3DUnf->Project3D(histNamesUnf[i],"x");
-//        TH1 *hist1DTru = hist3DTru->Project3D(histNamesTru[i],"x");
-       
-        // Set line color and thickness
-        hist1DUnf->SetLineColor(colors[i]); // Set line color
-        hist1DUnf->SetLineWidth(2);         // Set line thickness to 2
-        
-        hist1DUnf->Divide(hist1DTru);
-        // Draw the histogram
-        if (i == 1) {
-            hist1DUnf->GetYaxis()->SetTitle("Unfolded/True");
-            hist1DUnf->Draw();
+            // Get the 3D histogram
+            TH3 *hist3DUnf = (TH3*)file->Get(originalHistNameUnf);
+            if (!hist3DUnf) {
+                std::cerr << "Error retrieving histogram: " << originalHistNameUnf << " from file: " << filenames[i] << std::endl;
+                file->Close();
+                continue;
+            }
+            hist3DUnf->SetName(histNamesUnf3d[i]);
+            hist3DUnf->GetXaxis()->SetTitle(str4);
+            hist3DUnf->GetYaxis()->SetTitle(str);
+            hist3DUnf->GetZaxis()->SetTitle("wt");
+            hist3DUnf->SetMarkerStyle(markers[i]);
+            hist3DUnf->SetMarkerColor(colors[i]);
+            hist3DUnf->Sumw2();
+            
+            
+            TH3 *hist3DTru = (TH3*)file->Get(originalHistNameTru);
+            if (!hist3DTru) {
+                std::cerr << "Error retrieving histogram: " << originalHistNameTru << " from file: " << filenames[i] << std::endl;
+                file->Close();
+                continue;
+            }
+            hist3DTru->SetName(histNamesTru3d[i]);
+            
+            cout<<"hher"<<endl;
+            // Project the 3D histogram to a 1D histogram along the X-axis
+            TH1 *hist1DUnf; //= hist3DUnf->ProjectionX(histNamesUnf[i],2,2,10,10);
+            TH1 *hist1DTru; //= hist3DTru->ProjectionX(histNamesTru[i],2,2,10,10);
+            
+            if(projection=="x"){
+                //            hist1DUnf = hist3DUnf->ProjectionX(histNamesUnf[i],2,5,10,10);
+                //            hist1DTru = hist3DTru->ProjectionX(histNamesTru[i],2,5,10,10);
+                
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                hist1DUnf = hist3DUnf->Project3D("x");
+                hist1DTru = hist3DTru->Project3D("x");
+            }
+            else if(projection=="y")
+            {
+                //            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
+                //            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
+                
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                hist1DUnf = hist3DUnf->Project3D("y");
+                hist1DTru = hist3DTru->Project3D("y");
+            }
+            else{
+                //            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
+                //            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
+                
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                hist1DUnf = hist3DUnf->Project3D("z");
+                hist1DTru = hist3DTru->Project3D("z");
+            }
+            
+            hist1DUnf->SetName(histNamesUnf[i]);
+            hist1DTru->SetName(histNamesTru[i]);
+            //        hist1DUnf->GetYaxis()->SetRangeUser(0.5,1.5);
+            //        hist1DTru->GetYaxis()->SetRangeUser(0.5,1.5);
+            //        TH1 *hist1DUnf = hist3DUnf->Project3D(histNamesUnf[i],"x");
+            //        TH1 *hist1DTru = hist3DTru->Project3D(histNamesTru[i],"x");
+            
+            // Set line color and thickness
+            hist1DUnf->SetLineColor(colors[i]); // Set line color
+            hist1DUnf->SetLineWidth(2);         // Set line thickness to 2
+            hist1DUnf->SetMarkerColor(colors[i]);
+            
+            hist1DUnf->Divide(hist1DUnf_base);
+            
+            //        hist1DUnf->Divide(hist1DTru);
+            // Draw the histogram
+            
+            hist1DUnf->GetYaxis()->SetTitle("Unfolded/iter4");
             hist1DUnf->SetStats(0);
-        } else {
-            hist1DUnf->GetYaxis()->SetTitle("Unfolded/True");
+            hist1DUnf->GetYaxis()->SetTitle("Unfolded/iter4");
             hist1DUnf->Draw("SAME");
+            
+            
+            
+            // Add histogram to legend
+            legend->AddEntry(hist1DUnf, histNamesUnf[i], "l");
+            
+            // Close the file
+            //        file->Close();
         }
         
-        // Add histogram to legend
-        legend->AddEntry(hist1DUnf, histNamesUnf[i], "l");
+        // Draw the legend
+        legend->Draw();
         
-        // Close the file
-        //        file->Close();
     }
+   
+///##########################Studying effects of folding
+ 
+    if(ifFold){
+        cout<<"folded histogram "<<endl;
+        // Loop over the files, retrieve and rename histograms
+        for (int i = 0; i < num; i++) {
+            // Open the file
+            TFile *file = TFile::Open(filenames[i]);
+            if (!file || file->IsZombie()) {
+                std::cerr << "Error opening file: " << filenames[i] << std::endl;
+                continue;
+            }
+            
+            // Get the 3D histogram
+            TH3 *hist3DUnf = (TH3*)file->Get(originalHistNameUnf);
+            if (!hist3DUnf) {
+                std::cerr << "Error retrieving histogram: " << originalHistNameUnf << " from file: " << filenames[i] << std::endl;
+                file->Close();
+                continue;
+            }
+            hist3DUnf->SetName(histNamesUnf3d[i]);
+            hist3DUnf->GetXaxis()->SetTitle(str4);
+            hist3DUnf->GetYaxis()->SetTitle(str);
+            hist3DUnf->GetZaxis()->SetTitle("wt");
+            hist3DUnf->SetMarkerStyle(markers[i]);
+            hist3DUnf->SetMarkerColor(colors[i]);
+            hist3DUnf->Sumw2();
+            
+            
+            TH3 *hist3DTru = (TH3*)file->Get(originalHistNameTru);
+            if (!hist3DTru) {
+                std::cerr << "Error retrieving histogram: " << originalHistNameTru << " from file: " << filenames[i] << std::endl;
+                file->Close();
+                continue;
+            }
+            hist3DTru->SetName(histNamesTru3d[i]);
+            
+            cout<<"hher"<<endl;
+            // Project the 3D histogram to a 1D histogram along the X-axis
+            TH1 *hist1DUnf; //= hist3DUnf->ProjectionX(histNamesUnf[i],2,2,10,10);
+            TH1 *hist1DTru; //= hist3DTru->ProjectionX(histNamesTru[i],2,2,10,10);
+            
+            if(projection=="x"){
+                //            hist1DUnf = hist3DUnf->ProjectionX(histNamesUnf[i],2,5,10,10);
+                //            hist1DTru = hist3DTru->ProjectionX(histNamesTru[i],2,5,10,10);
+                
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                hist1DUnf = hist3DUnf->Project3D("x");
+                hist1DTru = hist3DTru->Project3D("x");
+            }
+            else if(projection=="y")
+            {
+                //            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
+                //            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
+                
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                hist1DUnf = hist3DUnf->Project3D("y");
+                hist1DTru = hist3DTru->Project3D("y");
+            }
+            else{
+                //            hist1DUnf = hist3DUnf->ProjectionY(histNamesUnf[i],2,2,10,10);
+                //            hist1DTru = hist3DTru->ProjectionY(histNamesTru[i],2,2,10,10);
+                
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetXaxis()->SetRangeUser(rlow,rhigh);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                //            hist3DUnf->GetYaxis()->SetRangeUser(pt1,pt2);
+                hist1DUnf = hist3DUnf->Project3D("z");
+                hist1DTru = hist3DTru->Project3D("z");
+            }
+            
+            hist1DUnf->SetName(histNamesUnf[i]);
+            hist1DTru->SetName(histNamesTru[i]);
+            //        hist1DUnf->GetYaxis()->SetRangeUser(0.5,1.5);
+            //        hist1DTru->GetYaxis()->SetRangeUser(0.5,1.5);
+            //        TH1 *hist1DUnf = hist3DUnf->Project3D(histNamesUnf[i],"x");
+            //        TH1 *hist1DTru = hist3DTru->Project3D(histNamesTru[i],"x");
+            
+            // Set line color and thickness
+            hist1DUnf->SetLineColor(colors[i]); // Set line color
+            hist1DUnf->SetLineWidth(2);         // Set line thickness to 2
+            hist1DUnf->SetMarkerColor(colors[i]);
+            
+            hist1DUnf->Divide(hist1DTru);
+            // Draw the histogram
+            
+            hist1DUnf->GetYaxis()->SetTitle("folded/raw");
+            hist1DUnf->SetStats(0);
+            hist1DUnf->GetYaxis()->SetTitle("folded/raw");
+            hist1DUnf->Draw("SAME");
+            
+            // Add histogram to legend
+            legend->AddEntry(hist1DUnf, histNamesUnf[i], "l");
+            
+            cout<<hist1DUnf->GetNbinsX()<<" and "<<hist1DTru->GetNbinsX()<<endl;
+            // Close the file
+            //        file->Close();
+        }
+        
+        // Draw the legend
+        legend->Draw();
+        
+    }
+   
+///##########################Studying effects of weights
+  
+    if(ifCheckProjected){
+        
+//        const char* inputFile = "/Users/ar2545/Downloads/E3C_dataOct24.root";
+//        std::string histName3D_unfolded = "Opt_Un_e3c";
+//        std::string histName3D = "Opt_Un_e3c";
+//        std::string histName2D = "e3c_pt_hist_unf";
+        
+//        std::string histName3D_unfolded = "h3_triv";
+//        std::string histName3D = "h3_true_eecTriv";
+//        std::string histName2D = "eec_pt_histTriv";
+        
+        const char* inputFile = filenames[3];
+//        std::string histName3D_unfolded = "h3_unfoldedSplit";
+//        std::string histName3D = "h3_trueSplit";
+//        std::string histName2D = "eec_pt_histSplit";
+        
+         std::string histName3D_unfolded = "h3_fold";
+        std::string histName3D = "h3_rawSplit";
+        std::string histName2D = "eec_pt_hist_detSplit";
+        
+ 
+        bool ifInterpolate = true;
+        const char *str = "#it{p}_{T,jet}";
+        const char *str1 = "#it{p}_{T,min}";
+        const char *str2 = "anti-#it{k}_{T}";
+        const char *str3 = "#sqrt{s} = 13 TeV";
+        const char *str4 = "#it{R}_{L}";
+        const char *str8 = "#it{#eta}_{jet}";
+        const char *str11 = "#it{p}_{T}^{const}";
+        
+        // Open the input file
+        TFile *f = TFile::Open(inputFile, "READ");
+        if (!f || f->IsZombie()) {
+            std::cerr << "Error opening file: " << inputFile << std::endl;
+            return;
+        }
+        
+//        TH1D* hjet = (TH1D*)f->Get("jet_pt_hist");
+//        hjet->Scale(1.,"width");
+//        
+//        TCanvas* cjet;
+//        hjet->Draw();
+        
+        TH3D* h3 = (TH3D*)f->Get(histName3D.c_str());
+        h3->GetXaxis()->SetTitle(str4);
+        h3->GetYaxis()->SetTitle(str);
+        h3->GetZaxis()->SetTitle("wt");
+        
+        TH3D* h3_unfolded = (TH3D*)f->Get(histName3D_unfolded.c_str());
+        h3_unfolded->GetXaxis()->SetTitle(str4);
+        h3_unfolded->GetYaxis()->SetTitle(str);
+        h3_unfolded->GetZaxis()->SetTitle("wt");
+        
+        if (!h3_unfolded) {
+            std::cerr << "Error retrieving histogram: " << histName3D_unfolded << std::endl;
+            f->Close();
+            return;
+        }
+        
+         
+        int pt1jet = h3->GetYaxis()->FindBin(pt1);
+        int pt2jet = h3->GetYaxis()->FindBin(pt2);
+        
+        h3->GetYaxis()->SetRange(pt1jet,pt2jet);
+        h3_unfolded->GetYaxis()->SetRange(pt1jet,pt2jet);
+        // Get the 2D histogram
+        TH2D *h2 = (TH2D*)h3->Project3D("zx"); //Rl vs wt histogram
+        TH2D *h2_unfolded = (TH2D*)h3_unfolded->Project3D("zx"); //Rl vs wt histogram
+        
+        // Create the 1D histogram
+        int nBinsX = h3->GetNbinsX();
+        double xMin = h3->GetXaxis()->GetXmin();
+        double xMax = h3->GetXaxis()->GetXmax();
+        
+        TH1D *h1 = (TH1D*)h2->ProjectionX("h1");
+        h1->Reset();
+        
+        TH1D *h1_unfolded = (TH1D*)h2_unfolded->ProjectionX("h1_unfolded");
+        h1_unfolded->Reset();
+        
+        TCanvas* c;
+//        h3->Draw();
+        
+       if(!ifInterpolate)
+       {
+           //Loop over the x bins to create a weighted average
+           for (int i = 1; i <= nBinsX; ++i) {
+               int nBinsY = h2->GetNbinsY();
+               double weightedSum = 0;
+               double sumOfWeights = 0;
+               
+               for (int j = 1; j <= nBinsY; ++j) {
+                   double binContent = h2->GetBinContent(i, j);
+                   double binCenterY = h2->GetYaxis()->GetBinCenter(j); // Bin center in Y direction
+                   
+                   // Compute weight as the bin center in Y direction
+                   double weight = binCenterY;
+                   
+                   // Accumulate weighted sum and sum of weights
+                   weightedSum += binContent * weight;
+                   sumOfWeights += weight;
+               }
+               // Compute weighted average, avoiding division by zero
+               double weightedAverage = (sumOfWeights != 0) ? (weightedSum / sumOfWeights) : 0;
+               double xCenter = h2->GetXaxis()->GetBinCenter(i);
+               //    h1->SetBinContent(i, weightedAverage);
+               h1->SetBinContent(i, weightedSum);//this is closest to filling on the fly, not the avg
+           }
+           
+           
+           for (int i = 1; i <= nBinsX; ++i) {
+               int nBinsY = h2_unfolded->GetNbinsY();
+               double weightedSum = 0;
+               double sumOfWeights = 0;
+               
+               for (int j = 1; j <= nBinsY; ++j) {
+                   double binContent = h2_unfolded->GetBinContent(i, j);
+                   double binCenterY = h2_unfolded->GetYaxis()->GetBinCenter(j); // Bin center in Y direction
+                   
+                   // Compute weight as the bin center in Y direction
+                   double weight = binCenterY;
+                   
+                   // Accumulate weighted sum and sum of weights
+                   weightedSum += binContent * weight;
+                   sumOfWeights += weight;
+               }
+               // Compute weighted average, avoiding division by zero
+               double weightedAverage = (sumOfWeights != 0) ? (weightedSum / sumOfWeights) : 0;
+               double xCenter = h2_unfolded->GetXaxis()->GetBinCenter(i);
+               h1_unfolded->SetBinContent(i, weightedSum);//this is closest to filling on the fly, not the avg
+           }
+       }
+       else{
+         
+           for (int i = 1; i <= nBinsX; ++i){
+               int nBinsY = h2->GetNbinsY();
+               double weightedSum = 0;
+               TH1D *h1_wt = (TH1D*)h2->ProjectionY(Form("h1_wt_%i",i),i,i);
+               //               h1_wt->Draw();
+               
+               for (int j = 1; j <= nBinsY; ++j) {
+                   double weight = h1_wt->GetBinCenter(j);
+                   double bin_content = h1_wt->Interpolate(weight);
+                   weightedSum += weight*bin_content;
+               }
+               h1->SetBinContent(i, weightedSum);//this is closest to filling on the fly, not the avg
+           }
+           
+           for (int i = 1; i <= nBinsX; ++i){
+               int nBinsY = h2_unfolded->GetNbinsY();
+               double weightedSum = 0;
+               TH1D *h1_wt_unfolded = (TH1D*)h2_unfolded->ProjectionY(Form("h1_wt_unfolded_%i",i),i,i);
+               for (int j = 1; j <= nBinsY; ++j) {
+                   double weight = h1_wt_unfolded->GetBinCenter(j);
+                   double bin_content = h1_wt_unfolded->Interpolate(weight);
+                   weightedSum += weight*bin_content;
+                   
+                   if(bin_content!=0 && h1_wt_unfolded->GetBinContent(j)!=bin_content ){
+                       cout<<"bin center: " <<setprecision(10)<<weight<<" and " <<h1_wt_unfolded->GetBinContent(j)<<" and interpolated "<<setprecision(10)<<bin_content<<endl;
+                   }
+               }
+               h1_unfolded->SetBinContent(i, weightedSum);//this is closest to filling on the fly, not the avg
+           }
+       }
+        
+        h1->Scale(1.,"width");
+        h1->SetLineColor(kGreen);
+        h1_unfolded->Scale(1.,"width");
+        h1_unfolded->SetLineColor(kRed);
+        
+        TH2D* h2_nom;
+        h2_nom = (TH2D*)f->Get(histName2D.c_str());
     
-    // Draw the legend
-    legend->Draw();
+        TH1D* h1_nom = (TH1D*)h2_nom->ProjectionX(Form("h1nom"),pt1jet,pt2jet);
+        h1_nom->Scale(1.,"width");
+         h1_nom->SetLineColor(kMagenta);
+        cout<<h1_nom->GetNbinsX()<<" and "<<nBinsX<<endl;
+//        h1->Divide(h1_nom);
+       
+        
+//        TH1D* h1_clone_unfolded = (TH1D*)h1_unfolded->Clone("denominator");
+//        h1_unfolded->Add(h1_nom,-1);
+//        h1_unfolded->Divide(h1_clone_unfolded);
+//
+        h1_unfolded->GetYaxis()->SetTitle("percent diff");
+         h1->GetYaxis()->SetTitle("3D projection/2D projection");
+      
+       h1->Divide(h1_nom);
+       h1_unfolded->Divide(h1_nom);
+        h1_nom->Draw("same,HIST");
+        h1->Draw();
+        h1_unfolded->Draw("same");
+
+    legend2->AddEntry(h1, "true", "l");
+    legend2->AddEntry(h1_unfolded, "unfolded", "l");
     
-    // Update the canvas
-//    c1->Update();
+//    legend2->AddEntry(h1, "raw", "l");
+//    legend2->AddEntry(h1_unfolded, "folded", "l");
+//    legend2->AddEntry(h1_nom, "nom", "l");
+//    legend2->Draw("same");
+
+        
+    }
+
+    
+    
 }
