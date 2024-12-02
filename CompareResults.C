@@ -28,10 +28,13 @@
 
 void CompareResults(int pt1, int pt2) {
     
-    std::string unfResults = "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECnew2.root";
-    std::string rawDat = "/Users/ar2545/Downloads/EEC_dataNov18.root";
-    std::string UnfDat = "/Users/ar2545/Desktop/Unfolding/ProjectedOutputEECNew2.root";
-//    std::string jetFileMC = "/Users/ar2545/Downloads/Unfolding/Unfold3DData_Nov18.root";
+//    std::string unfResults = "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECnew2.root";
+//    std::string rawDat = "/Users/ar2545/Downloads/EEC_dataNov18.root";
+//    std::string UnfDat = "/Users/ar2545/Desktop/Unfolding/ProjectedOutputEECNew2.root";
+
+ std::string unfResults = "/Users/ar2545/Downloads/UnfoldingResultsDataEEC_4EECnew3.root";
+    std::string rawDat = "/Users/ar2545/Downloads/EEC_dataNov20.root";
+    std::string UnfDat = "/Users/ar2545/Desktop/Unfolding/ProjectedOutputEECNew3.root";
     
     bool ifarea = false;
     int num=4;
@@ -185,7 +188,13 @@ void CompareResults(int pt1, int pt2) {
     h1_unfClone->Divide(h1_datClone);
     h1_unfClone->Draw();
     
-
+//########################Compare w Wenqing's
+//topPad->cd();
+//       std::string wResults = "/Users/ar2545/Downloads/data_outputWenqing.root";
+//        TFile *fw = TFile::Open(Form("%s",wResults.c_str()));
+//        TH1 *eec = (TH1*)fw->Get(Form("h1d_EEC_%i%i",pt1,pt2));
+//        eec->SetLineColor(kGreen+4);
+//        eec->Draw("same");
         
     }
 
