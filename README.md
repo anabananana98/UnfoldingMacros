@@ -14,3 +14,5 @@ For performing the actual unfolding I have a script called “PerformUnfolding.c
 ```bash
 source launchdoUnfold.sh
 ```
+
+CompareResults.C and CompareResultsNIter.C compares unfolded results vs binbybin corrected results.
